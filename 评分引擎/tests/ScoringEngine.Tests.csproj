@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>ScoringEngine</RootNamespace>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <!-- ★ 引用评分引擎源码（原误引用 Collector，导致评分引擎源码根本没参与编译）-->
+  <ItemGroup>
+    <ProjectReference Include="..\..\评分引擎\src\ScoringEngine\ScoringEngine.csproj" />
+  </ItemGroup>
+
+</Project>

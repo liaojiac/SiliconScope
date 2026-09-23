@@ -1,0 +1,20 @@
+SiliconScope
+Copyright (c) 2026 SiliconScope contributors
+
+This product includes software developed by the SiliconScope project.
+
+==============================================================================
+Third-party components (their source is NOT redistributed in this repository)
+==============================================================================
+
+LibreHardwareMonitor  -  Mozilla Public License 2.0
+    https://github.com/LibreHardwareMonitor/LibreHardwareMonitor
+    * LibreHardwareMonitorLib (NuGet 0.9.6) and its embedded PawnIO driver are
+      restored at build time and bundled in self-contained releases under MPL-2.0.
+
+HWiNFO  -  proprietary (REALiX Corp.)
+    * SiliconScope only READS the HWiNFO shared-memory interface (SM2) when
+      HWiNFO is installed and the user enables "Shared Memory Support".
+      HWiNFO itself is NOT included and remains the property of its owner.
+
+See README.md / README.zh-CN.md for details.

@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "采集层", "采集层", "{4BEE3057-F5AD-4F51-883D-7C14068F9547}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E8B41BE8-A01F-441B-97C0-F294903D153C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Collector", "采集层\src\Collector\Collector.csproj", "{FB8C5A47-D32C-4692-99E9-7CEA9B88E515}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Collector.Tests", "采集层\tests\Collector.Tests.csproj", "{EB099FD1-0D9D-4BB9-962E-F5A2DDF60BA7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "评分引擎", "评分引擎", "{9FF7CAF2-9C85-42BF-A013-8230DE29B927}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F0D28C4E-053B-4C55-A720-75DCCB08B755}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScoringEngine", "评分引擎\src\ScoringEngine\ScoringEngine.csproj", "{CF7295ED-FD8B-47A7-9117-8F4A2A19F7D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScoringEngine.Tests", "评分引擎\tests\ScoringEngine.Tests.csproj", "{DA943B68-D073-452F-AFDF-6B84C16CCD4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiliconScope", "UI\SiliconScope.csproj", "{5EDE0D89-8129-4326-A7A7-0112DFA02B5B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB8C5A47-D32C-4692-99E9-7CEA9B88E515}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB8C5A47-D32C-4692-99E9-7CEA9B88E515}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB8C5A47-D32C-4692-99E9-7CEA9B88E515}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB8C5A47-D32C-4692-99E9-7CEA9B88E515}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB099FD1-0D9D-4BB9-962E-F5A2DDF60BA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB099FD1-0D9D-4BB9-962E-F5A2DDF60BA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB099FD1-0D9D-4BB9-962E-F5A2DDF60BA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB099FD1-0D9D-4BB9-962E-F5A2DDF60BA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF7295ED-FD8B-47A7-9117-8F4A2A19F7D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF7295ED-FD8B-47A7-9117-8F4A2A19F7D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF7295ED-FD8B-47A7-9117-8F4A2A19F7D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF7295ED-FD8B-47A7-9117-8F4A2A19F7D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA943B68-D073-452F-AFDF-6B84C16CCD4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA943B68-D073-452F-AFDF-6B84C16CCD4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA943B68-D073-452F-AFDF-6B84C16CCD4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA943B68-D073-452F-AFDF-6B84C16CCD4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EDE0D89-8129-4326-A7A7-0112DFA02B5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EDE0D89-8129-4326-A7A7-0112DFA02B5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EDE0D89-8129-4326-A7A7-0112DFA02B5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EDE0D89-8129-4326-A7A7-0112DFA02B5B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E8B41BE8-A01F-441B-97C0-F294903D153C} = {4BEE3057-F5AD-4F51-883D-7C14068F9547}
+		{FB8C5A47-D32C-4692-99E9-7CEA9B88E515} = {E8B41BE8-A01F-441B-97C0-F294903D153C}
+		{EB099FD1-0D9D-4BB9-962E-F5A2DDF60BA7} = {4BEE3057-F5AD-4F51-883D-7C14068F9547}
+		{F0D28C4E-053B-4C55-A720-75DCCB08B755} = {9FF7CAF2-9C85-42BF-A013-8230DE29B927}
+		{CF7295ED-FD8B-47A7-9117-8F4A2A19F7D3} = {F0D28C4E-053B-4C55-A720-75DCCB08B755}
+		{DA943B68-D073-452F-AFDF-6B84C16CCD4D} = {9FF7CAF2-9C85-42BF-A013-8230DE29B927}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,13 @@
+<Application x:Class="SiliconScope.UI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- 不使用 StartupUri。改在 App.OnStartup 中、日志与全局异常兜底都就绪后
+       再手动创建 MainWindow，避免建窗阶段（含启动传感器探测）抛异常时静默闪退。 -->
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Theme/Styles.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

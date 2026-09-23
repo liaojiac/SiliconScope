@@ -1,0 +1,200 @@
+<UserControl x:Class="SiliconScope.UI.Views.ResultView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ctl="clr-namespace:SiliconScope.UI.Controls"
+             TextElement.Foreground="{StaticResource TextBrush}">
+  <StackPanel>
+
+    <!-- ===== 空态 ===== -->
+    <Border>
+      <Border.Style>
+        <Style TargetType="Border" BasedOn="{StaticResource Card}">
+          <Setter Property="Visibility" Value="Collapsed"/>
+          <Style.Triggers>
+            <DataTrigger Binding="{Binding Result.NoResult}" Value="True">
+              <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+          </Style.Triggers>
+        </Style>
+      </Border.Style>
+      <StackPanel HorizontalAlignment="Center" Margin="0,30">
+        <TextBlock Text="尚未评测" FontSize="17" FontWeight="SemiBold"
+                   HorizontalAlignment="Center" Foreground="{StaticResource TextBrush}"/>
+        <TextBlock Text="请先在「开始评测」中完成一次满载采样。" Style="{StaticResource Muted}"
+                   HorizontalAlignment="Center" Margin="0,8,0,0"/>
+      </StackPanel>
+    </Border>
+
+    <!-- ===== 有结果 ===== -->
+    <StackPanel>
+      <StackPanel.Style>
+        <Style TargetType="StackPanel">
+          <Setter Property="Visibility" Value="Collapsed"/>
+          <Style.Triggers>
+            <DataTrigger Binding="{Binding Result.HasResult}" Value="True">
+              <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+          </Style.Triggers>
+        </Style>
+      </StackPanel.Style>
+
+      <!-- Estimated 水印 -->
+      <Border CornerRadius="8" Padding="14" Margin="0,0,0,16"
+              BorderBrush="#59D29922" BorderThickness="1" Background="#1AD29922">
+        <Border.Style>
+          <Style TargetType="Border">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Style.Triggers>
+              <DataTrigger Binding="{Binding Result.IsEstimated}" Value="True">
+                <Setter Property="Visibility" Value="Visible"/>
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </Border.Style>
+        <TextBlock TextWrapping="Wrap" FontSize="12.5" Foreground="#F0D9A0">
+          <Run FontWeight="Bold">⚠ 本型号参考参数为估计值</Run>
+          <Run>，SP 绝对分仅供同型号 CPU 之间横向比较，不与任何厂商内置分数对标。待该型号积累足够实测/众包样本后，参数将自动收敛为标定值。</Run>
+        </TextBlock>
+      </Border>
+
+      <!-- SP 总览 -->
+      <Border Style="{StaticResource Card}">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="170"/><ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+
+          <ctl:RingGauge Grid.Column="0" Width="160" Height="160"
+                         Score="{Binding Result.SpScore}"
+                         Grade="{Binding Result.Grade}"
+                         GradeColor="{Binding Result.GradeColor}"/>
+
+          <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="18,0,0,0">
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="{Binding Result.Model}" FontSize="19" FontWeight="Bold"
+                         Foreground="{StaticResource TextBrush}"/>
+              <Border CornerRadius="6" Padding="12,4" Margin="12,0,0,0"
+                      Background="#1258A6FF" BorderBrush="#5958A6FF" BorderThickness="1">
+                <TextBlock Text="{Binding Result.Grade}" FontSize="14" FontWeight="Bold"
+                           Foreground="{Binding Result.GradeColor}"/>
+              </Border>
+            </StackPanel>
+            <TextBlock Text="{Binding Result.HardwareLine}" Style="{StaticResource Muted}"
+                       Margin="0,8,0,0"/>
+            <TextBlock Text="{Binding Result.AnchorLine}" Style="{StaticResource Muted}"
+                       Margin="0,3,0,0"/>
+            <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
+              <Button Content="导出报告" Style="{StaticResource Ghost}"
+                      Command="{Binding Result.ExportCmd}"/>
+              <Button Content="导出诊断包" Style="{StaticResource Ghost}" Margin="8,0,0,0"
+                      Command="{Binding Result.BundleCmd}"/>
+            </StackPanel>
+          </StackPanel>
+        </Grid>
+      </Border>
+
+      <!-- V/F 图 + 核心分布 -->
+      <Grid Margin="0,0,0,16">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition/><ColumnDefinition Width="14"/><ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Style="{StaticResource Card}" Margin="0">
+          <StackPanel>
+            <TextBlock Text="V/F 工作点与折算" Style="{StaticResource CardTitle}"/>
+            <Border Background="{StaticResource Card2Brush}" CornerRadius="8" Padding="8"
+                    BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"
+                    Height="230" Margin="0,10,0,0">
+              <ctl:VfChart Points="{Binding Result.VfPoints}"
+                           AnchorFreq="{Binding Result.AnchorFreq}"
+                           Slope="{Binding Result.Slope}"/>
+            </Border>
+            <Border Style="{StaticResource Note}">
+              <TextBlock TextWrapping="Wrap" Style="{StaticResource Muted}" FontSize="11.5">
+                紫线为锚定频率，蓝虚线为拟合的 V/F 直线。实测点被折算到锚点后再与参考电压比较，因此不同负载下结果一致。
+              </TextBlock>
+            </Border>
+          </StackPanel>
+        </Border>
+
+        <Border Grid.Column="2" Style="{StaticResource Card}" Margin="0">
+          <StackPanel>
+            <TextBlock Text="核心电压分布（仅供参考）" Style="{StaticResource CardTitle}"/>
+            <Grid Height="230" Margin="0,10,0,0">
+              <Border Background="{StaticResource Card2Brush}" CornerRadius="8" Padding="8"
+                      BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"
+                      Visibility="{Binding Result.HasCores, Converter={StaticResource BoolToVis}}">
+                <ctl:CoreBars Vids="{Binding Result.Vids}"/>
+              </Border>
+              <Border Background="{StaticResource Card2Brush}" CornerRadius="8" Padding="12"
+                      BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"
+                      Visibility="{Binding Result.NoCores, Converter={StaticResource BoolToVis}}">
+                <StackPanel VerticalAlignment="Center">
+                  <TextBlock Text="本机未提供有效的每核 VID" FontWeight="SemiBold" Foreground="{StaticResource WarnBrush}"/>
+                  <TextBlock TextWrapping="Wrap" Margin="0,8,0,0" Style="{StaticResource Muted}" FontSize="11.5"
+                             Text="满载实测中整颗 CPU 的供电电压（VDDCR）已明显升高，但 LHM 报告的各核 Core #N VID 仍停在最低档（约 0.43V）且彼此相同，属该平台未正确实现的占位读数。用它排名会得出“最佳/最差核心相同”的假结论，故不显示核间分布；主分仍以整颗 CPU 的 VDDCR 折算为准。"/>
+                </StackPanel>
+              </Border>
+            </Grid>
+            <Border Style="{StaticResource NoteWarn}">
+              <TextBlock TextWrapping="Wrap" Style="{StaticResource Muted}" FontSize="11.5">
+                <Run FontWeight="Bold" Foreground="{StaticResource TextBrush}">物理事实：</Run>
+                <Run>Zen3/4/5 核心为统一供电（VDDCR），不存在每核独立电压。此处 Core #N VID 是各核 CPPC 请求电压、非真实供电电压，核间排名仅供参考；它不是工厂熔丝中的出厂体质分，软件层面也读不到出厂熔丝分。</Run>
+              </TextBlock>
+            </Border>
+          </StackPanel>
+        </Border>
+      </Grid>
+
+      <!-- 参数来源表 -->
+      <Border Style="{StaticResource Card}">
+        <StackPanel>
+          <TextBlock Text="评分参数与来源（不做黑盒）" Style="{StaticResource CardTitle}"/>
+          <Grid Margin="0,12,0,0">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="150"/><ColumnDefinition Width="110"/>
+              <ColumnDefinition Width="150"/><ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="参数" Style="{StaticResource Muted}" FontSize="11.5"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="取值" Style="{StaticResource Muted}" FontSize="11.5"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="来源" Style="{StaticResource Muted}" FontSize="11.5"/>
+            <TextBlock Grid.Row="0" Grid.Column="3" Text="说明" Style="{StaticResource Muted}" FontSize="11.5"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="参考电压 V_ref" FontSize="12.5"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Result.VRef, StringFormat={}{0:F3} V}" FontSize="12.5"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" Text="公开评测校准" Style="{StaticResource Muted}" FontSize="12"/>
+            <TextBlock Grid.Row="1" Grid.Column="3" Text="GamersNexus Blender 全核 VID" Style="{StaticResource Muted}" FontSize="12"/>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="锚定频率" FontSize="12.5"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Result.AnchorFreq, StringFormat={}{0:F0} MHz}" FontSize="12.5"/>
+            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Result.AnchorSource}" Style="{StaticResource Muted}" FontSize="12"/>
+            <TextBlock Grid.Row="2" Grid.Column="3" Text="全核应力典型频率" Style="{StaticResource Muted}" FontSize="12"/>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="V/F 斜率" FontSize="12.5"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Result.Slope, StringFormat={}{0:F2} mV/MHz}" FontSize="12.5"/>
+            <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Result.SlopeSource}" Style="{StaticResource Muted}" FontSize="12"/>
+            <TextBlock Grid.Row="3" Grid.Column="3" Text="真机双点反推，落在 Zen4 公开区间 0.35–0.45 内" Style="{StaticResource Muted}" FontSize="12"/>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="标定等级" FontSize="12.5"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Result.CalibrationText}" FontSize="12.5"/>
+            <TextBlock Grid.Row="4" Grid.Column="2" Text="—" Style="{StaticResource Muted}" FontSize="12"/>
+            <TextBlock Grid.Row="4" Grid.Column="3" FontSize="12" Style="{StaticResource Muted}">
+              <Run Text="置信度 "/><Run Text="{Binding Result.ConfidenceText, Mode=OneWay}"/>
+            </TextBlock>
+          </Grid>
+
+          <Border Style="{StaticResource Note}">
+            <TextBlock TextWrapping="Wrap" Style="{StaticResource Muted}" FontSize="11.5">
+              口径提示：参考电压取自公开评测 VID 口径，实测为 VDDCR 供电读数口径，两者约 ±10mV 系统差 → SP 约 ±3~5 分，离线绝对分天然带有此误差。
+            </TextBlock>
+          </Border>
+        </StackPanel>
+      </Border>
+    </StackPanel>
+
+  </StackPanel>
+</UserControl>

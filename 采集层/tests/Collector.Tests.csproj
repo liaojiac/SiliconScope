@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!-- 被测 Collector 为 net8.0-windows（依赖 LHM/注册表），测试工程需同 TFM；
+         非 Windows 交叉编译追加 -p:EnableWindowsTargeting=true -->
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RootNamespace>Collector</RootNamespace>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\Collector\Collector.csproj" />
+  </ItemGroup>
+
+</Project>

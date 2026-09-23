@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>ScoringEngine</RootNamespace>
+    <AssemblyName>ScoringEngine</AssemblyName>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <!-- 评分引擎此前【没有自己的 csproj】，源码从未参与编译，
+       导致 Program.cs 引用 ScoreResult/Exporter 时必然编译失败。
+       本文件让 ScoringEngine.cs + Exporter.cs 正式成为可编译类库。 -->
+
+</Project>

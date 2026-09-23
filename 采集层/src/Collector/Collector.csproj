@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!-- 采集层直接依赖 LibreHardwareMonitor（Windows 专用 Ring0/PawnIO）与注册表/角色 API，
+         改为 net8.0-windows；在非 Windows 上交叉编译需 -p:EnableWindowsTargeting=true。
+         评分引擎仍为跨平台 net8.0 类库，不受影响。 -->
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RootNamespace>Collector</RootNamespace>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <!-- Libre Hardware Monitor：真实传感器采集依赖（MPL-2.0，免费商用）。
+       ★ 必须文件夹发布（禁止单文件发布 single-file），否则内嵌 PawnIO 驱动资源释放失败、读数全 0。 -->
+  <ItemGroup>
+    <PackageReference Include="LibreHardwareMonitorLib" Version="0.9.6" />
+  </ItemGroup>
+
+  <!-- System.Text.Json 用于量表 JSON 读取（.NET 8 内置，无需额外包）-->
+  <ItemGroup>
+    <None Update="baseline.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- ★ 引用评分引擎（Program.cs 串联 采集→质控→评分→导出 主链路需要）-->
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\评分引擎\src\ScoringEngine\ScoringEngine.csproj" />
+  </ItemGroup>
+
+  <!-- ★ Program.cs 位于项目目录上两级（采集层/Program.cs），SDK 默认 glob 不含，必须显式编入，否则 Exe 缺 Main -->
+  <ItemGroup>
+    <Compile Include="..\..\Program.cs" />
+  </ItemGroup>
+
+</Project>

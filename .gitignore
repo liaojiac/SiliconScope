@@ -1,0 +1,36 @@
+# 运行时产物（由 Logger / DiagnosticStore 自动生成，不入库）
+logs/
+reports/
+导出/
+诊断包*/
+诊断包_*.zip
+sensor_cache.json
+
+# .NET
+bin/
+obj/
+*.user
+.vs/
+
+# Python 验证层
+__pycache__/
+*.pyc
+
+# 运行时用户数据 / 诊断（程序目录便携落盘，不入库）
+history/
+settings.json
+hosttrace.txt
+*.log
+sensor_cache.json
+
+# 发布产物 / 打包
+*.zip
+发布*/
+SiliconScope/
+
+# IDE / 编辑器
+.idea/
+.vscode/
+*.suo
+*.swp
+.DS_Store

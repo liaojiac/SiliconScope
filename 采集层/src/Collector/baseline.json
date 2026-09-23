@@ -1,0 +1,56 @@
+[
+  {
+    "Model": "7800X3D", "ZenGeneration": "Zen4", "VRef": 1.070,
+    "ReferenceFreqMHz": 4200, "Priority": 1,
+    "MaxBoostMHz": 5000, "AnchorFreqMHz": 4800, "SlopeMvPerMhz": 0.41,
+    "CalibrationLevel": "Calibrated"
+  },
+  {
+    "Model": "7950X", "ZenGeneration": "Zen4", "VRef": 1.060,
+    "ReferenceFreqMHz": 4500, "Priority": 2,
+    "MaxBoostMHz": 5700, "AnchorFreqMHz": 5200,
+    "CalibrationLevel": "Estimated"
+  },
+  {
+    "Model": "7900X", "ZenGeneration": "Zen4", "VRef": 1.065,
+    "ReferenceFreqMHz": 4700, "Priority": 3,
+    "MaxBoostMHz": 5600, "AnchorFreqMHz": 5100,
+    "CalibrationLevel": "Estimated"
+  },
+  {
+    "Model": "7700X", "ZenGeneration": "Zen4", "VRef": 1.070,
+    "ReferenceFreqMHz": 4500, "Priority": 4,
+    "MaxBoostMHz": 5400, "AnchorFreqMHz": 5000,
+    "CalibrationLevel": "Estimated"
+  },
+  {
+    "Model": "5800X3D", "ZenGeneration": "Zen3", "VRef": 1.120,
+    "ReferenceFreqMHz": 3400, "Priority": 5,
+    "MaxBoostMHz": 4500, "AnchorFreqMHz": 4250,
+    "CalibrationLevel": "Estimated"
+  },
+  {
+    "Model": "5900X", "ZenGeneration": "Zen3", "VRef": 1.130,
+    "ReferenceFreqMHz": 3700, "Priority": 6,
+    "MaxBoostMHz": 4800, "AnchorFreqMHz": 4550,
+    "CalibrationLevel": "Estimated"
+  },
+  {
+    "Model": "9950X", "ZenGeneration": "Zen5", "VRef": 1.030,
+    "ReferenceFreqMHz": 4300, "Priority": 7,
+    "MaxBoostMHz": 5700, "AnchorFreqMHz": 5400,
+    "CalibrationLevel": "Estimated"
+  },
+  {
+    "Model": "9900X", "ZenGeneration": "Zen5", "VRef": 1.035,
+    "ReferenceFreqMHz": 4400, "Priority": 8,
+    "MaxBoostMHz": 5500, "AnchorFreqMHz": 5250,
+    "CalibrationLevel": "Estimated"
+  },
+  {
+    "Model": "9700X", "ZenGeneration": "Zen5", "VRef": 1.040,
+    "ReferenceFreqMHz": 3600, "Priority": 9,
+    "MaxBoostMHz": 5500, "AnchorFreqMHz": 5200,
+    "CalibrationLevel": "Estimated"
+  }
+]

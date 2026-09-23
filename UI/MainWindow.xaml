@@ -1,0 +1,107 @@
+<Window x:Class="SiliconScope.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:SiliconScope.UI.ViewModels"
+        xmlns:v="clr-namespace:SiliconScope.UI.Views"
+        Title="SiliconScope" Height="780" Width="1180"
+        MinHeight="640" MinWidth="1000"
+        Background="{StaticResource BgBrush}"
+        TextElement.Foreground="{StaticResource TextBrush}"
+        WindowStartupLocation="CenterScreen">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="200"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <!-- ===== 侧边导航 ===== -->
+    <Border Grid.Column="0" Background="{StaticResource PanelBrush}"
+            BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,1,0">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Padding="20,20" BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0,0,0,1">
+          <StackPanel>
+            <StackPanel Orientation="Horizontal">
+              <Ellipse Width="7" Height="7" Fill="{StaticResource AccentBrush}" Margin="0,0,7,0"/>
+              <TextBlock Text="SiliconScope" FontSize="15" FontWeight="Bold"
+                         Foreground="{StaticResource TextBrush}"/>
+            </StackPanel>
+            <TextBlock Text="Silicon Quality · 稳态 V/F 体质评分" FontSize="10.5"
+                       Foreground="{StaticResource DimBrush}" Margin="14,3,0,0"/>
+          </StackPanel>
+        </Border>
+
+        <ListBox Grid.Row="1" x:Name="Nav" Background="Transparent" BorderThickness="0"
+                 SelectedIndex="0" SelectionChanged="Nav_SelectionChanged"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+          <ListBoxItem Style="{StaticResource NavItem}" Content="▶  开始评测" Tag="Run"/>
+          <ListBoxItem Style="{StaticResource NavItem}" Content="◈  评分详情" Tag="Result"/>
+          <ListBoxItem Style="{StaticResource NavItem}" Content="🕘  历史成绩" Tag="History"/>
+          <ListBoxItem Style="{StaticResource NavItem}" Content="⚙  设置" Tag="Settings"/>
+        </ListBox>
+
+        <Border Grid.Row="2" Padding="16,14" BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0,1,0,0">
+          <StackPanel>
+            <TextBlock Text="V1.0.0" FontSize="11" Foreground="{StaticResource MutedBrush}"/>
+            <TextBlock Text="AMD Zen3 / Zen4 / Zen5" FontSize="10.5"
+                       Foreground="{StaticResource DimBrush}" Margin="0,2,0,0"/>
+            <TextBlock Text="Win10 / Win11" FontSize="10.5" Foreground="{StaticResource DimBrush}"/>
+          </StackPanel>
+        </Border>
+      </Grid>
+    </Border>
+
+    <!-- ===== 主区 ===== -->
+    <Grid Grid.Column="1">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="52"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+
+      <!-- 顶栏 -->
+      <Border Grid.Row="0" Background="{StaticResource PanelBrush}"
+              BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1"
+              Padding="24,0">
+        <Grid>
+          <TextBlock x:Name="TitleText" Text="开始评测" FontSize="14.5" FontWeight="SemiBold"
+                     Foreground="{StaticResource TextBrush}" VerticalAlignment="Center"/>
+          <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Border CornerRadius="10" Padding="8,3" Margin="0,0,8,0">
+              <Border.Style>
+                <Style TargetType="Border">
+                  <Setter Property="Background" Value="#12485149"/>
+                  <Style.Triggers>
+                    <DataTrigger Binding="{Binding SensorReady}" Value="True">
+                      <Setter Property="Background" Value="#123FB950"/>
+                    </DataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </Border.Style>
+              <TextBlock Text="{Binding Status}" FontSize="11.5" Foreground="{StaticResource MutedBrush}"/>
+            </Border>
+            <Border Background="{StaticResource Card2Brush}" CornerRadius="10" Padding="8,3">
+              <TextBlock Text="离线模式" FontSize="11.5" Foreground="{StaticResource MutedBrush}"/>
+            </Border>
+          </StackPanel>
+        </Grid>
+      </Border>
+
+      <!-- 内容区 -->
+      <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="24,20">
+        <Grid>
+          <v:RunView Visibility="{Binding IsRun, Converter={StaticResource BoolToVis}}"/>
+          <v:ResultView Visibility="{Binding IsResult, Converter={StaticResource BoolToVis}}"/>
+          <v:HistoryView Visibility="{Binding IsHistory, Converter={StaticResource BoolToVis}}"/>
+          <v:SettingsView Visibility="{Binding IsSettings, Converter={StaticResource BoolToVis}}"/>
+        </Grid>
+      </ScrollViewer>
+    </Grid>
+  </Grid>
+</Window>
